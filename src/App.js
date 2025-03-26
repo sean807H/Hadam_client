@@ -1,8 +1,8 @@
 import './App.css';
-import Login from './Login.js';
+import Home from './route/Home_Screen'
 
 function App() {
-    return <Login />;
+    return <Home />;
 }
 
 export default App;
