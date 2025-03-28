@@ -17,21 +17,6 @@ form {
     gap: 20px;
 }
 
-.input-detail > p {
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 5px;
-}
-
-.input-style {
-    width: 284px;
-    height: 20px;
-    border-radius: 10px;
-    border: 1px solid #D9D9D9;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    padding: 14px;
-    font-size: 14px;
-}
 
 .login-button {
     display: flex;
