@@ -13,3 +13,10 @@
     padding: 14px;
     font-size: 14px;
 }
+
+.inputlable {
+    display: flex;
+    margin-bottom: 6px;
+    margin-left: 10px;
+}
+
