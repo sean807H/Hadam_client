@@ -11,6 +11,7 @@ function Input({ type = "text", placeholder = "", value, onChange, label, id }) 
         value={value}
         onChange={onChange}
         className={style.inputstyle}
+        id={id}
       />
     </div>
   );
