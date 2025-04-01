@@ -12,8 +12,8 @@ function Login() {
       <h2 className='title'>로그인 하세요</h2>
       
       <form>
-          <Input type="text" placeholder="Enter username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          <Input type="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <Input type="text" placeholder="Enter username" value={username} onChange={(e) => setUsername(e.target.value)} label="아이디" id="username"/>
+          <Input type="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)}  label="비밀번호" id="password" />
           <button type="submit" className="login-button">
           로그인
         </button>
