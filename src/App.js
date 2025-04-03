@@ -1,6 +1,6 @@
 import './App.css';
-import Login from './route/Login';
-import Signup from './route/Signup'
+import Login from './route/login/Login';
+import Signup from './route/signup/Signup';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
