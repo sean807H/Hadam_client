@@ -1,16 +1,18 @@
 import { useState } from "react";
-import "../reset.css";
-import Input from "../components/Input";
-import "../Login.css";
+import "../../reset.css";
+import Input from "../../components/input/Input";
+import style from "./Login.module.css"
 import { Link } from "react-router-dom";
+import Button from "../../components/button/button";
+
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <main className="main-section">
-      <h2 className="title">로그인 하세요</h2>
+    <main className={style.main}>
+      <h2 className={style.title}>로그인</h2>
 
       <form>
         <Input
@@ -29,15 +31,14 @@ function Login() {
           label="비밀번호"
           id="password"
         />
-        <button type="submit" className="login-button">
-          로그인
-        </button>
+        <Button text="로그인" type="submit"/>
+        
       </form>
 
-      <section className="login-footer">
+      <section className={style.footer}>
         <div>계정이 없으신가요?</div>
         <Link to="/signup"  style={{ textDecoration: "none"}}>
-          <div className="main-color">가입하기</div>
+          <div className={style.color}>가입하기</div>
         </Link>
       </section>
     </main>

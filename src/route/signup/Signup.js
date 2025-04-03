@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import Input from "../components/Input";
-import "../reset.css";
-import "../Login.css";
+import Input from "../../components/input/Input";
+import "../../reset.css";
+import Button from "../../components/button/button";
+import style from "./Signup.module.css"
 
 function Signup() {
   const [form, setForm] = useState({
@@ -21,8 +22,8 @@ function Signup() {
   }
 
   return (
-    <div className="main-section">
-      <h2 className="title">회원가입</h2>
+    <div className={style.main}>
+      <h2 className={style.title}>회원가입</h2>
       <form>
         <Input
           type="text"
@@ -52,9 +53,7 @@ function Signup() {
           label="닉네임"
           id="nickname"
         />
-        <button type="submit" className="login-button">
-          회원가입
-        </button>
+        <Button text="회원가입" type="submit"/>
       </form>
     </div>
   );
