@@ -1,0 +1,27 @@
+.nav {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #fff;
+    position: fixed;
+    height: 84px;
+    bottom: 0;
+}
+
+.navItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+}
+
+.label {
+    font-size:12px;
+    margin-top: 10px;
+}

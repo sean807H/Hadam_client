@@ -4,7 +4,7 @@ function Quote() {
     const [quote, setQuote] = useState("");
     useEffect(() => {
         const fetchQuote = async () => {
-            const response = await (await fetch(`/todayQuote.json`)).json();
+            const response = await (await fetch(`/data/todayQuote.json`)).json();
             const randomIndex = Math.floor(Math.random() * response.length);
             setQuote(response[randomIndex].quote);
         }
