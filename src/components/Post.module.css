@@ -1,0 +1,93 @@
+.postContainer {
+    width: 330px;
+    max-height: 160px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin: 30px auto;
+    transition: max-height 0.4s ease;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .expanded {
+    width: 335px;
+    max-height: 1000px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .dateGratitude {
+    font-size: 13px;
+    color: #FF6B5B;
+    font-weight: 500;
+  }
+  
+  .dateRegret {
+    font-size: 13px;
+    color: #D9D9D9;
+    font-weight: 500;
+  }
+  
+  .badge {
+    font-size: 12px;
+    height: 25px;
+    width: 52px;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 25px;
+    font-weight: 500;
+  }
+  
+  .public {
+    background-color: #FF6B5B;
+    color: white;
+  }
+  
+  .private {
+    background-color: #D9D9D9;
+    color: black;
+  }
+  
+  .content {
+    font-size: 14px;
+    line-height: 1.5;
+    color: black;
+    word-break: break-word;
+  }
+  
+  .deleteButton {
+    margin-top: 12px;
+    padding: 8px 16px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+  }
+  
+  .deleteButton:hover {
+    background-color: #ff3b3b;
+  }
+
+  .buttonGroup {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 12px;
+  }
+
+.anymore{
+    text-align: center;
+    margin-top: 50px;
+}
+  
