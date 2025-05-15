@@ -1,6 +1,8 @@
 import './App.css';
 import Login from './route/login/Login';
+import Home from './route/Home_Screen';
 import Signup from './route/signup/Signup';
+import Calendar from "./route/calendar/calendar"
 import Nav from "./components/nav";
 import Write from "./components/Write";
 import Post from "./components/Post"
@@ -10,6 +12,8 @@ function App() {
     return (
         <Router>
             <Routes>
+                <Route path='/calendar' element={<Calendar />}></Route>
+                <Route path='/' element={<Home />}></Route>
                 <Route path='/login' element={<Login />}></Route>
                 <Route path='/signup' element={<Signup />}></Route>
                 <Route path='/nav' element={<Nav />}></Route>
