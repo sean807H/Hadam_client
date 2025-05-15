@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Quote from '../components/quote'
 
-function Home_Screen() {
+function Home() {
     return (
         <div>
             <img src='/ri_double-quotes-l.png'/>
@@ -11,4 +11,4 @@ function Home_Screen() {
     );
 }
 
-export default Home_Screen;
+export default Home;
