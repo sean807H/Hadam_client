@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Write.module.css';
 
@@ -8,6 +8,19 @@ function Write() {
   const [content, setContent] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [isPublic, setIsPublic] = useState(null);
+
+  const api = useEffect(() => {
+    const fetchData = async() => {
+      try {
+          const response = await fetch("http://localhost:5000");
+          const jsonData = await response.json();
+      } catch(error) {
+        console.error("Error fetching data : " + error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const navigate = useNavigate();
 
