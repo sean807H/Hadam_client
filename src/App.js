@@ -4,8 +4,8 @@ import Home from './route/Home_Screen';
 import Signup from './route/signup/Signup';
 import Calendar from "./route/calendar/calendar"
 import Nav from "./components/nav";
-import Write from "./components/Write";
-import Post from "./components/Post"
+import Write from "./route/write/Write";
+import Post from "./route/diary/Post"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
