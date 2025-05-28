@@ -1,11 +1,14 @@
 .container {
-  width: 390px;
-  height: 844px;
-  margin: 0 auto;
+  width: 100%;
+  min-height: 100vh; /* 화면 높이에 맞게 */
   padding: 30px;
+  box-sizing: border-box; /* 패딩 포함 너비 계산 */
   font-family: sans-serif;
   background-color: white;
+  display: flex;
+  flex-direction: column;
 }
+
 
 .buttonGroup {
   display: flex;
@@ -34,7 +37,8 @@
 }
 
 .titleInput {
-  width: 310px;
+  width: 100%;
+  max-width: 330px;
   height: 35px;
   padding: 10px;
   font-size: 14px;
@@ -46,7 +50,8 @@
 }
 
 .contentInput {
-  width: 310px;
+  width: 100%;
+  max-width: 330px;
   height: 350px;
   padding: 10px;
   font-size: 14px;
@@ -59,7 +64,8 @@
 }
 
 .saveButton {
-  width: 332px;
+  width: 100%;
+  max-width: 350px;
   height: 38px;
   background-color: #FF6B5B;
   color: white;
@@ -73,13 +79,14 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 390px;
-  height: 844px;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(182, 182, 182, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 
 .popup {
   width: 269px;
@@ -102,7 +109,7 @@
 
 .popupTitle {
   font-size: 15px;
-  margin-top: 60px;
+  margin-top: 40px;
   margin-bottom: 40px;
 }
 
@@ -112,7 +119,7 @@
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 
 .popupSelected {
