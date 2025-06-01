@@ -9,8 +9,6 @@ function Write() {
   const [showPopup, setShowPopup] = useState(false);
   const [isPublic, setIsPublic] = useState(null);
 
-
-
   const navigate = useNavigate();
 
   const handleSave = () => {
@@ -25,16 +23,17 @@ function Write() {
 
       //이런 형태의 JSON 데이터로 넘겨줘야 하기 때문에 정의해줌
       const payload = {
-        title_t: diaryType,
-        diary_t: content,
-        open_t: isPublic,
-        date_t: dateStr,
+        title: title,
+        diary: content,
+        open: isPublic,
+        date: dateStr,
+        diary_type: diaryType,
       };
 
       //본격적인 API 연결
       try {
         //response(응답)을 fetch 로 API 라우터를 받음
-        const response = await fetch("http://localhost:5000/write-thanks", {
+        const response = await fetch("http://localhost:5000/write-diary", {
           //POST 형식으로 보내겠다를 정의
           method: "POST",
           //JSON 형태로 값을 보내겠다 headers에 명시해줌
