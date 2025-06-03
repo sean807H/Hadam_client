@@ -8,21 +8,23 @@ function Post() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/write-thanks");
+        const response = await fetch("http://localhost:5000/write-diary");
         const jsonData = await response.json();
         console.log("받은 데이터:", jsonData);
   
         const mappedData = jsonData.map(entry => ({
           id: entry.id,
-          diaryType: entry.title_t,
-          content: entry.diary_t,
-          isPublic: entry.open_t === 1,
-          date: new Date(entry.date_t).toLocaleDateString(),
-        
+          title: entry.title,
+          content: entry.diary,
+          isPublic: entry.open === 1 || entry.open === true,
+          date: new Date(entry.date).toLocaleDateString(),
+          diaryType: entry.diary_type,
         }));
   
         const deleted = (JSON.parse(localStorage.getItem("deletedDiaries")) || []).map(String);
         const filtered = mappedData.filter(entry => !deleted.includes(String(entry.id)));
+
+        // localStorage.removeItem("deletedDiaries");
   
         setDiaries(filtered);
   
@@ -50,7 +52,7 @@ function Post() {
   return (
     <div>
       {diaries.map((diary) => {
-        const isGratitude = diary.diaryType === "감사일기";
+        const isGratitude = diary.diaryType === "thanks";
         const isVisible = diary.isPublic === true;
         const isExpanded = expandedId === diary.id;
 

@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Write.module.css';
 
 function Write() {
-  const [diaryType, setDiaryType] = useState("감사일기");
+  const [diaryType, setDiaryType] = useState("thanks");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [showPopup, setShowPopup] = useState(false);
-  const [isPublic, setIsPublic] = useState(null);
+  const [isPublic, setIsPublic] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,6 +28,7 @@ function Write() {
         open: isPublic,
         date: dateStr,
         diary_type: diaryType,
+        user_id: "testuser123",
       };
 
       //본격적인 API 연결
@@ -53,6 +54,7 @@ function Write() {
         } else {
           //이 외에 상태코드 일 시 서버 오류 발생하고 status (그 전 log 같은거(?)) 받아와서 뭐가 문제인지 확인할 수 있게 함
           console.error("서버 오류:", response.status);
+          
         }
         //catch 로 에러가 나면 에러 잡음
       } catch (error) {
@@ -65,14 +67,14 @@ function Write() {
     <div className={styles.container}>
       <div className={styles.buttonGroup}>
         <button
-          className={`${styles.button} ${diaryType === "감사일기" ? styles.active : styles.inactive}`}
-          onClick={() => setDiaryType("감사일기")}
+          className={`${styles.button} ${diaryType === "thanks" ? styles.active : styles.inactive}`}
+          onClick={() => setDiaryType("thanks")}
         >
           감사일기
         </button>
         <button
-          className={`${styles.button} ${diaryType === "후회일기" ? styles.active : styles.inactive}`}
-          onClick={() => setDiaryType("후회일기")}
+          className={`${styles.button} ${diaryType === "regret" ? styles.active : styles.inactive}`}
+          onClick={() => setDiaryType("regret")}
         >
           후회일기
         </button>
@@ -88,7 +90,7 @@ function Write() {
 
       <textarea
         className={styles.contentInput}
-        placeholder={`${diaryType}를 작성해주세요`}
+        placeholder={`${diaryType === 'thanks' ? '감사일기를' : '후회일기를'} 작성해주세요`}
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />

@@ -6,6 +6,7 @@ import Calendar from "./route/calendar/calendar"
 import Nav from "./components/nav";
 import Write from "./route/write/Write";
 import Post from "./route/diary/Post"
+import Community from "./route/community/Community"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
                 <Route path='/nav' element={<Nav />}></Route>
                 <Route path='/write' element={<Write />}></Route>
                 <Route path='/post' element={<Post />}></Route>
+                <Route path='/community' element={<Community/>}></Route>
             </Routes>
         </Router>
     );
