@@ -1,0 +1,180 @@
+.container {
+  padding: 30px;
+  font-family: sans-serif;
+  background-color: #fff;
+}
+
+.profileSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+
+.profileImageWrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+
+.nickname {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.userid {
+  color: #aaa;
+  margin-top: 3px;
+  font-size: 13px;
+}
+
+.addButton {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addButton:hover::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: #ffd4cf;
+  border-radius: 4px;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+.vectorIconSmall {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.postTitle {
+  font-weight: bold;
+  font-size: 13px;
+  margin-top: 50px;
+  padding-left: 5px;
+  color: #000000;
+}
+
+.postSection {
+  position: relative;
+  border-top: 1px solid #eee;
+  margin-top: 10px;
+  padding-top: 20px;
+  margin-left: -30px;
+  margin-right: -30px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.postProfile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ddd;
+}
+
+.nicknameOther {
+  font-size: 14px;
+}
+
+.date {
+  font-size: 11px;
+  margin-top: 3px;
+  color: #888;
+}
+
+.expandIcon {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.postBody {
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.reactionArea {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  position: relative;
+}
+
+.plusButton {
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.reactionBox {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  display: flex;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px 14px;
+  gap: 16px;
+}
+
+.reactionItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+}
+
+.emoji {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 4px;
+}
+
+.shareIconSmall {
+  width: 25px;
+  height: 25px;
+}
+
+.smilePlusIconSmall {
+  width: 35px;
+  height: 35px;
+}
