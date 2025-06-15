@@ -2,6 +2,7 @@ import React from "react";
 import {useState, useEffect} from "react";
 import axios from "axios";
 import style from "./best.module.css"
+import { Link } from "react-router-dom";
 
 
 export default function Best() {
@@ -32,30 +33,34 @@ export default function Best() {
     }
 
     return(
-        <div className={style.slide_section}>
-        <div className={style.slide}>
-            <div className={style.header}>
-                <div 
-                className={style.tag}
-                style={write[currentIndex].diary_type === "thanks" ? {backgroundColor: "#FF6B5B", color: "white"} : {backgroundColor: "#D9D9D9", color: "black"}}>{write[currentIndex].diary_type === "thanks" ? "감사일기" : "후회일기"}</div>
-                <h3>{write[currentIndex].title}</h3>
+        <div>
+            <div className={style.slide_section}>
+            <div className={style.slide}>
+                <div className={style.header}>
+                    <div 
+                    className={style.tag}
+                    style={write[currentIndex].diary_type === "thanks" ? {backgroundColor: "#FF6B5B", color: "white"} : {backgroundColor: "#D9D9D9", color: "black"}}>{write[currentIndex].diary_type === "thanks" ? "감사일기" : "후회일기"}</div>
+                    <h3>{write[currentIndex].title}</h3>
+                </div>
+                <div className={style.content}>
+                    <p>{write[currentIndex].diary}</p>
+                </div>
             </div>
-            <div className={style.content}>
-                <p>{write[currentIndex].diary}</p>
+
+            {/* 아래 점 3개 */}
+            <div className={style.dots}>
+                {write.map((_, index) => (
+                <span
+                    key={index}
+                    className={currentIndex === index ? style.activeDot : style.dot}
+                    onClick={() => setCurrentIndex(index)}
+                ></span>
+                ))}
             </div>
+            </div>
+            <Link to="/write" style={{ textDecoration: "none"}}>
+                <button className={style.button}>일기작성하러가기</button>
+            </Link>
         </div>
-
-        {/* 아래 점 3개 */}
-        <div className={style.dots}>
-            {write.map((_, index) => (
-            <span
-                key={index}
-                className={currentIndex === index ? style.activeDot : style.dot}
-                onClick={() => setCurrentIndex(index)}
-            ></span>
-            ))}
-        </div>
-        </div>
-
     )
 }

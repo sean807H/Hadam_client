@@ -1,5 +1,5 @@
 .slide_section {
-    margin-top: 40%;
+    margin-top: 30%;
 }
 
 .slide {
@@ -55,4 +55,17 @@
 
 .activeDot {
   background-color: #FF6B5B;
+}
+
+.button {
+    width: 330px;
+    height: 42px;
+    background-color: #FF6B5B;
+    margin-left: 20px;
+    margin-top: 50px;
+    border: 1px solid #FF6B5B;
+    border-radius: 10px;
+    font-size: 14px;
+    color: white;
+
 }
