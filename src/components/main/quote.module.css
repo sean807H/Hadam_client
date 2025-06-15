@@ -1,0 +1,9 @@
+.quote_box {
+    border: 1px solid #FF6B5B;
+    border-radius: 10px;
+    width: 330px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

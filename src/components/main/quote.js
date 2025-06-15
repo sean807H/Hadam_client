@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import styles from "./quote.module.css"
 
 function Quote() {
     const [quote, setQuote] = useState("");
@@ -12,8 +13,8 @@ function Quote() {
     }, [])
 
     return (
-        <div>
-            <p>{quote}</p>
+        <div className={styles.quote_box}>
+            <p style={{fontSize: "18px", width: "300px", height: "70px", textAlign: "center"}}>{quote}</p>
         </div>
     );
 }

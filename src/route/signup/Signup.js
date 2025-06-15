@@ -4,8 +4,10 @@ import "../../reset.css";
 import Button from "../../components/button/button";
 import style from "./Signup.module.css"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     user_id: "",
     email: "",
@@ -39,6 +41,11 @@ function Signup() {
         name: form.name,
       });
       alert("회원가입 성공!");
+      localStorage.setItem("user_id", form.user_id);
+      localStorage.setItem("email", form.email);
+      localStorage.setItem("name", form.name);
+      navigate('/login');
+      
     } catch (error) {
       console.error("회원가입 오류:", error);
       alert("회원가입 실패");
