@@ -1,0 +1,23 @@
+.img {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+}
+
+.main_section {
+    margin-top: 108px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.right {
+    top: 92px;
+    left: 30px;
+}
+
+.left {
+    top : 246px;
+    right: 28px;
+}
