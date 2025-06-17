@@ -30,7 +30,7 @@ function Write() {
         title: title,
         diary: content,
         open: isPublic,
-        date: dateStr,
+        diary_date: dateStr,
         diary_type: diaryType,
         user_id: user_id,
       };

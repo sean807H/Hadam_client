@@ -6,9 +6,6 @@ import Nav from "../../components/nav";
 function Post() {
   const [diaries, setDiaries] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
-  // user_id, name 가져와야됨
-  // const name = localStorage.getItem("name");
-  // const user_id = localStorage.getItem("user_id");
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -27,7 +24,7 @@ function Post() {
           title: entry.title,
           content: entry.diary,
           isPublic: entry.open === 1 || entry.open === true,
-          date: new Date(entry.date).toLocaleDateString(),
+          date: new Date(entry.diary_date).toLocaleDateString(),
           diaryType: entry.diary_type,
         }));
 

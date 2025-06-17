@@ -1,78 +1,136 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Nav from "../../components/nav";
 import styles from "./Community.module.css";
 
 import profile from "./iconpng/profile.png";
+import vectorIcon from "./iconpng/Vector.png";
+import shareIcon from "./iconpng/outline_share.png";
+import smilePlus from "./iconpng/smile-plus.png";
 import redHeart from "./iconpng/red-heart.png";
 import goodTwo from "./iconpng/good-two.png";
 import smilingFace from "./iconpng/smiling-face.png";
 import relievedFace from "./iconpng/relieved-face.png";
-import vectorIcon from "./iconpng/Vector.png";
-import shareIcon from "./iconpng/outline_share.png";
-import smilePlus from "./iconpng/smile-plus.png";
 
 const reactionIcons = [redHeart, goodTwo, smilingFace, relievedFace];
 
 export default function Community() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-
+  const user_id = localStorage.getItem("user_id");
+  const [nickname, setNickname] = useState(localStorage.getItem("name") || "");
   const [diaries, setDiaries] = useState([]);
   const [reactions, setReactions] = useState({});
   const [showReactionsFor, setShowReactionsFor] = useState(null);
 
-  // 공개된 일기만 가져오기
+  // 게시글 목록 및 반응 초기 로드 (deletedDiaries 필터 적용)
   useEffect(() => {
+    if (!token) return;
     axios
       .get("http://localhost:5000/write-diary", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        const publicDiaries = res.data.filter(
-          // open === 1 인것만
-          (d) => d.open === 1 || d.open === true
+        // 공개된 일기 필터
+        let publicDiaries = res.data
+          .filter((d) => d.open === 1 || d.open === true)
+          .map((d) => ({
+            ...d,
+            formattedDate: new Date(d.diary_date).toLocaleDateString(),
+          }));
+        // 삭제된 일기 아이디 가져오기
+        const deleted = JSON.parse(
+          localStorage.getItem("deletedDiaries") || "[]"
+        ).map(String);
+        publicDiaries = publicDiaries.filter(
+          (d) => !deleted.includes(String(d.id))
         );
         setDiaries(publicDiaries);
+
+        // 각 일기별 반응 개수 불러오기
+        publicDiaries.forEach((d) => {
+          axios
+            .get(`http://localhost:5000/reactions/${d.id}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((r) => {
+              const counts = [0, 0, 0, 0];
+              r.data.reactions.forEach((item) => counts[item.reaction_type]++);
+              setReactions((prev) => ({ ...prev, [d.id]: counts }));
+            })
+            .catch(console.error);
+        });
       })
       .catch(console.error);
   }, [token]);
 
-  // 일기 쓰기 페이지로 이동
-  const handleAddClick = () => navigate("/write");
+  // 유저 프로필(name) 로드
+  useEffect(() => {
+    if (!token) return;
+    axios
+      .get("http://localhost:5000/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        const me = res.data.find((u) => u.user_id === user_id);
+        if (me) {
+          setNickname(me.name);
+          localStorage.setItem("name", me.name);
+        }
+      })
+      .catch((err) => console.error("프로필 fetch 실패:", err));
+  }, [token, user_id]);
 
-  // 메일로 공유
+  // + 버튼 클릭시 post 로 이동
+  const handleGoToPost = () => navigate("/post");
+
   const handleShareClick = (text) => {
     const subject = encodeURIComponent("내가 쓴 일기 공유");
     const body = encodeURIComponent(text);
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   };
 
-  // 리액션 클릭
-  const handleReactionClick = (diaryId, idx) => {
-    setReactions((prev) => {
-      const prevCounts = prev[diaryId] || [0, 0, 0, 0];
-      const next = [...prevCounts];
-      next[idx]++;
-      return { ...prev, [diaryId]: next };
-    });
+  // 이모티콘 클릭: 서버 저장
+  const handleReactionClick = async (diaryId, idx) => {
+    if (diaryId == null || idx == null || user_id == null) return;
+    try {
+      await axios.post(
+        "http://localhost:5000/reactions",
+        { diary_id: diaryId, reaction_type: idx.toString(), user_id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const refresh = await axios.get(
+        `http://localhost:5000/reactions/${diaryId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      const counts = [0, 0, 0, 0];
+      refresh.data.reactions.forEach((item) => counts[item.reaction_type]++);
+      setReactions((prev) => ({ ...prev, [diaryId]: counts }));
+    } catch (err) {
+      console.error("반응 등록 실패:", err.response?.data || err.message);
+      alert("반응 등록 중 오류가 발생했습니다.");
+    }
   };
 
   return (
     <>
       <div className={styles.container}>
-        {/* 프로필 & 추가 버튼 */}
         <div className={styles.profileSection}>
           <img src={profile} alt="프로필" className={styles.profileImage} />
           <div>
-            <div className={styles.nickname}>NickName</div>
-            <div className={styles.userid}>#user ID</div>
+            <div className={styles.nickname}>{nickname || "NickName"}</div>
+            <div className={styles.userid}>#{user_id || "userID"}</div>
           </div>
-          <button className={styles.addButton} onClick={handleAddClick}>
+          <button className={styles.addButton} onClick={handleGoToPost}>
             <img
               src={vectorIcon}
-              alt="추가"
+              alt="내 일기 보기"
               className={styles.vectorIconSmall}
             />
           </button>
@@ -80,12 +138,9 @@ export default function Community() {
 
         <div className={styles.postTitle}>커뮤니티</div>
 
-        {/* 공개 일기 리스트 */}
         {diaries.map((d) => {
           const counts = reactions[d.id] || [0, 0, 0, 0];
           const isBoxOpen = showReactionsFor === d.id;
-
-          // 날짜 색깔 구분
           const dateClass =
             d.diary_type === "thanks"
               ? styles.dateGratitude
@@ -100,10 +155,11 @@ export default function Community() {
                   className={styles.postProfileImage}
                 />
                 <div>
-                  {/* 임시 NickName */}
-                  <div className={styles.nicknameOther}>NickName</div>
+                  <div className={styles.nicknameOther}>
+                    {d.user_name || nickname || "NickName"}
+                  </div>
                   <div className={`${styles.date} ${dateClass}`}>
-                    {new Date(d.date).toLocaleDateString()}
+                    {d.formattedDate}
                   </div>
                 </div>
                 <div
