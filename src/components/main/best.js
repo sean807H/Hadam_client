@@ -29,7 +29,14 @@ export default function Best() {
     }, [token])
 
     if(write.length === 0) {
-        return <div>아직 적은 일기 데이터가 없습니다</div>
+        return (
+            <div>
+                <div style={{marginTop: "30%", display: "flex", justifyContent: "center", alignItems : "center"}}>아직 적은 일기 데이터가 없습니다</div>
+                <Link to="/write" style={{ textDecoration: "none"}}>
+                    <button className={style.button}>일기작성하러가기</button>
+                </Link>
+            </div>
+        )
     }
 
     return(
