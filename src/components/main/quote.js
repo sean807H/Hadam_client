@@ -14,7 +14,7 @@ function Quote() {
 
     return (
         <div className={styles.quote_box}>
-            <p style={{fontSize: "18px", width: "300px", height: "70px", textAlign: "center"}}>{quote}</p>
+            <p style={{fontSize: "18px", width: "300px", height: "70px", textAlign: "center"}} className={styles.quote_text}>{quote}</p>
         </div>
     );
 }
