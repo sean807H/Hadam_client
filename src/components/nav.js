@@ -17,19 +17,19 @@ function Nav() {
   return (
     <nav className={style.nav}>
       {navItems.map(({ path, label, icon: iconName }) => {
-        const Icon = icon[iconName];
         const isActive = location.pathname === path;
+        const Icon = isActive ? icon[iconName].selected : icon[iconName].default;
 
         return (
-          <Link to={path} key={path} style={{textDecoration:"none"}}>
+          <Link to={path} key={path} style={{ textDecoration: "none" }}>
             <div className={`${style.navItem} ${isActive ? style.active : ""}`}>
-              {Icon && (
-                <Icon
-                  className={style.icon}
-                  style={{ fill: isActive ? "#FF7F50" : "#B0B0B0" }}
-                />
-              )}
-              <span className={style.label} style={{ color: isActive ? "#FF7F50" : "#B0B0B0" }}>{label}</span>
+              <Icon className={style.icon} />
+              <span
+                className={style.label}
+                style={{ color: isActive ? "#FF7F50" : "#B0B0B0" }}
+              >
+                {label}
+              </span>
             </div>
           </Link>
         );

@@ -1,0 +1,20 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #FF6B5B, #D9D9D9);
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.text {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
