@@ -4,7 +4,7 @@ import axios from "axios";
 import styles from "./Write.module.css";
 import Nav from "../../components/nav";
 
-function Write() {
+function Write({ onDiarySaved }) {
   const [diaryType, setDiaryType] = useState("thanks");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -20,12 +20,9 @@ function Write() {
   };
 
   const handleConfirm = async () => {
-    //팝업 제출 시 POST 요청 보내기 위해 NUll 인지 확인
     if (isPublic !== null) {
-      //DB DATE 날짜가 2025-05-26T15:00:00.000Z 이런 식으로 나오기 때문에 YYYY-MM-DD 형식으로 나오게 자름
       const dateStr = new Date().toISOString().split("T")[0];
 
-      //이런 형태의 JSON 데이터로 넘겨줘야 하기 때문에 정의해줌
       const payload = {
         title: title,
         diary: content,
@@ -36,12 +33,10 @@ function Write() {
         date: dateStr,
       };
 
-      //본격적인 API 연결
       try {
-        //response(응답)을 fetch 로 API 라우터를 받음
         const response = await axios.post(
           "http://localhost:5000/write-diary",
-          payload, // <-- JSON 직렬화는 axios가 자동으로 해줍니다.
+          payload,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -52,6 +47,12 @@ function Write() {
 
         if (response.status === 201) {
           console.log("데이터 전송 성공");
+          
+          // 저장 성공 시 콜백 호출 (부모 컴포넌트에 알림)
+          if (onDiarySaved) {
+            onDiarySaved();
+          }
+
           navigate("/post");
         } else {
           console.error("서버 오류:", response.status);

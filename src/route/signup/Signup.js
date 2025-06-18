@@ -13,7 +13,7 @@ function Signup() {
     email: "",
     password: "",
     confirmpassword: "",
-    name: ""
+    name: "",
   });
 
   const handleChange = (e) => {
@@ -28,7 +28,7 @@ function Signup() {
     e.preventDefault();
 
     // 비밀번호 확인 체크
-    if (form.password !== form.confirmpassword) {
+    if (form.password !== form.confirmpassword)  {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
@@ -44,6 +44,10 @@ function Signup() {
       localStorage.setItem("user_id", form.user_id);
       localStorage.setItem("email", form.email);
       localStorage.setItem("name", form.name);
+      
+      const res = await axios.get(`http://localhost:5000/users/${form.user_id}`);
+      const { profile } = res.data;
+      localStorage.setItem("profile", profile)
       navigate('/login');
       
     } catch (error) {
