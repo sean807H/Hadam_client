@@ -204,8 +204,8 @@ const Calendar = () => {
 
       {/* 팝업 */}
      {selectDate && (
-  <div className={styles.popup} style={{ display: "flex" }}>
-    <div style={{ display: "flex", alignItems: "center" }}>
+  <div className={styles.popup} style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", alignItems: "center"}}>
       <p className={styles.popup_title}>
         {selectDate.format("YYYY년 MM월 DD일")}
       </p>
@@ -215,33 +215,55 @@ const Calendar = () => {
     </div>
 
     {Array.isArray(diaryData) ? (() => {
-      const filteredDiary = diaryData
-        .filter((item) =>
-          dayjs.utc(item.diary_date).tz("Asia/Seoul").isSame(selectDate, "day")
-        );
+      const filteredDiary = diaryData.filter((item) =>
+        dayjs.utc(item.diary_date).tz("Asia/Seoul").isSame(selectDate, "day")
+      );
 
       if (filteredDiary.length === 0) {
-        return <div style={{paddingLeft: "40px", paddingTop: "10px"}}>일기 데이터가 존재하지 않습니다.</div>;
+        return (
+          <div style={{ paddingLeft: "40px", paddingTop: "10px" }}>
+            일기 데이터가 존재하지 않습니다.
+          </div>
+        );
       }
 
-      const latestDiary = filteredDiary
-        .sort((a, b) =>
-          new Date(b.updatedAt || b.createdAt) - new Date(a.updatedAt || a.createdAt)
-        )[0];
-
       return (
-        <div style={{ paddingLeft: "40px", paddingTop: "3px" }}>
-          <div>
-            <strong>{latestDiary.title}</strong>
-          </div>
-          <div style={{marginTop: "10px"}}>{latestDiary.diary}</div>
+        <div
+          style={{
+            display: "flex",
+            overflowX: "auto",
+            gap: "16px",
+            padding: "20px 40px",
+          }}
+        >
+          {filteredDiary.map((diary, index) => (
+            <div
+              key={index}
+              style={{
+                minWidth: "250px",
+                flex: "0 0 auto",
+                border: "1px solid #ccc",
+                borderRadius: "12px",
+                padding: "16px",
+                backgroundColor: "#fff",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+              }}
+            >
+              <p style={{ fontWeight: "bold", marginBottom: "8px" }}>{diary.title}</p>
+              <p style={{ whiteSpace: "pre-wrap" }}>{diary.diary}</p>
+            </div>
+          ))}
         </div>
       );
     })() : (
-      <div style={{paddingLeft: "40px", paddingTop: "20px"}}>일기 데이터가 존재하지 않습니다.</div>
+      <div style={{ paddingLeft: "40px", paddingTop: "20px" }}>
+        일기 데이터가 존재하지 않습니다.
+      </div>
     )}
   </div>
 )}
+
+
       <Nav />
     </div>
   );
