@@ -1,7 +1,7 @@
 .nav {
     display: flex;
     gap: 36px;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     width: 100%;
     background-color: #fff;
