@@ -33,6 +33,7 @@ function Write() {
         diary_date: dateStr,
         diary_type: diaryType,
         user_id: user_id,
+        date: dateStr,
       };
 
       //본격적인 API 연결
