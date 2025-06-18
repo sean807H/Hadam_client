@@ -24,31 +24,26 @@ export default function Community() {
   const [reactions, setReactions] = useState({});
   const [showReactionsFor, setShowReactionsFor] = useState(null);
 
-  // 게시글 목록 및 반응 초기 로드 (deletedDiaries 필터 적용)
+  // 1) 공개 일기만 가져와서 state에 세팅
   useEffect(() => {
     if (!token) return;
-    axios
-      .get("http://localhost:5000/write-diary", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        // 공개된 일기 필터
-        let publicDiaries = res.data
+    const fetchDiaries = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/write-diary", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const publicDiaries = res.data
           .filter((d) => d.open === 1 || d.open === true)
           .map((d) => ({
-            ...d,
+            id: d.id,
+            user_name: d.user_name || nickname,
+            diary: d.diary,
             formattedDate: new Date(d.diary_date).toLocaleDateString(),
+            diary_type: d.diary_type,
           }));
-        // 삭제된 일기 아이디 가져오기
-        const deleted = JSON.parse(
-          localStorage.getItem("deletedDiaries") || "[]"
-        ).map(String);
-        publicDiaries = publicDiaries.filter(
-          (d) => !deleted.includes(String(d.id))
-        );
         setDiaries(publicDiaries);
 
-        // 각 일기별 반응 개수 불러오기
+        // 반응 개수 로드
         publicDiaries.forEach((d) => {
           axios
             .get(`http://localhost:5000/reactions/${d.id}`, {
@@ -56,16 +51,22 @@ export default function Community() {
             })
             .then((r) => {
               const counts = [0, 0, 0, 0];
-              r.data.reactions.forEach((item) => counts[item.reaction_type]++);
+              r.data.reactions.forEach(
+                (item) => (counts[item.reaction_type] += 1)
+              );
               setReactions((prev) => ({ ...prev, [d.id]: counts }));
             })
             .catch(console.error);
         });
-      })
-      .catch(console.error);
-  }, [token]);
+      } catch (err) {
+        console.error("Community 불러오기 실패:", err);
+      }
+    };
 
-  // 유저 프로필(name) 로드
+    fetchDiaries();
+  }, [token, nickname]);
+
+  // 2) 프로필 이름 로드
   useEffect(() => {
     if (!token) return;
     axios
@@ -79,25 +80,26 @@ export default function Community() {
           localStorage.setItem("name", me.name);
         }
       })
-      .catch((err) => console.error("프로필 fetch 실패:", err));
+      .catch(console.error);
   }, [token, user_id]);
 
-  // + 버튼 클릭시 post 로 이동
   const handleGoToPost = () => navigate("/post");
-
   const handleShareClick = (text) => {
     const subject = encodeURIComponent("내가 쓴 일기 공유");
     const body = encodeURIComponent(text);
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   };
 
-  // 이모티콘 클릭: 서버 저장
   const handleReactionClick = async (diaryId, idx) => {
-    if (diaryId == null || idx == null || user_id == null) return;
+    if (!diaryId || !user_id) return;
     try {
       await axios.post(
         "http://localhost:5000/reactions",
-        { diary_id: diaryId, reaction_type: idx.toString(), user_id },
+        {
+          diary_id: diaryId,
+          reaction_type: idx.toString(),
+          user_id,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -105,15 +107,15 @@ export default function Community() {
           },
         }
       );
-      const refresh = await axios.get(
-        `http://localhost:5000/reactions/${diaryId}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      // 최신 반응 개수로 업데이트
+      const r = await axios.get(`http://localhost:5000/reactions/${diaryId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const counts = [0, 0, 0, 0];
-      refresh.data.reactions.forEach((item) => counts[item.reaction_type]++);
+      r.data.reactions.forEach((item) => (counts[item.reaction_type] += 1));
       setReactions((prev) => ({ ...prev, [diaryId]: counts }));
     } catch (err) {
-      console.error("반응 등록 실패:", err.response?.data || err.message);
+      console.error("반응 등록 오류:", err);
       alert("반응 등록 중 오류가 발생했습니다.");
     }
   };
@@ -155,9 +157,7 @@ export default function Community() {
                   className={styles.postProfileImage}
                 />
                 <div>
-                  <div className={styles.nicknameOther}>
-                    {d.user_name || nickname || "NickName"}
-                  </div>
+                  <div className={styles.nicknameOther}>{d.user_name}</div>
                   <div className={`${styles.date} ${dateClass}`}>
                     {d.formattedDate}
                   </div>

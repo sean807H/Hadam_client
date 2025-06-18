@@ -28,31 +28,34 @@ function Post() {
           diaryType: entry.diary_type,
         }));
 
-        const deleted = (
-          JSON.parse(localStorage.getItem("deletedDiaries")) || []
-        ).map(String);
-        const filtered = mappedData.filter(
-          (entry) => !deleted.includes(String(entry.id))
-        );
-
-        // localStorage.removeItem("deletedDiaries");
-
-        setDiaries(filtered);
+        // 삭제 로직 제거: 서버에서 받은 데이터 그대로 사용
+        setDiaries(mappedData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [token]);
 
-  const handleDelete = (e, id) => {
+  const handleDelete = async (e, id) => {
     e.stopPropagation();
-    const deletedList =
-      JSON.parse(localStorage.getItem("deletedDiaries")) || [];
-    const updatedList = [...deletedList, id];
-    localStorage.setItem("deletedDiaries", JSON.stringify(updatedList));
-    setDiaries((prev) => prev.filter((d) => d.id !== id));
+    try {
+      // 서버에 삭제 요청
+      await axios.delete(`http://localhost:5000/write-diary/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      // state에서도 제거
+      setDiaries((prev) => prev.filter((d) => d.id !== id));
+      console.log(`삭제 성공: 일기 ID ${id}`);
+    } catch (err) {
+      console.error("삭제 오류:", err.response?.data || err.message);
+      alert(
+        "삭제 중 오류가 발생했습니다:\n" +
+          (err.response?.data?.error || err.message)
+      );
+    }
   };
 
   if (diaries.length === 0) {
