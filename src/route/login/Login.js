@@ -22,11 +22,12 @@ function Login() {
       });
 
       
-      const { token, email, user_id } = response.data;
+      const { token, email, user_id, name } = response.data;
       alert("로그인 성공!");
       localStorage.setItem("token", token);
       localStorage.setItem("email", email);
       localStorage.setItem("user_id", user_id);
+      localStorage.setItem("name", name);
        navigate('/');
     } catch (error) {
       console.error("로그인 실패:", error);

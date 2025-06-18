@@ -8,6 +8,7 @@ import Write from "./route/write/Write";
 import Post from "./route/diary/Post"
 import Community from "./route/community/Community"
 import Login from "./route/login/Login"
+import My from "./route/my/my"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Route path='/write' element={<Write />}></Route>
                 <Route path='/post' element={<Post />}></Route>
                 <Route path='/community' element={<Community/>}></Route>
+                <Route path='/my' element={<My />}></Route>
             </Routes>
         </Router>
     );
