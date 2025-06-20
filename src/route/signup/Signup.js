@@ -52,7 +52,7 @@ function Signup() {
       
     } catch (error) {
       console.error("회원가입 오류:", error);
-      alert("회원가입 실패");
+      alert("회원가입 실패", err);
     }
   };
 
