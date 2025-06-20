@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./my.module.css";
 import { Link } from "react-router-dom";
 import Nav from "../../components/nav"
+import dprofile from "./profile.png";
 
 function My() {
   const [events, setEvents] = useState(new Map());
@@ -135,14 +136,14 @@ function My() {
       <div className={styles.header}>
         <div style={{ borderRadius: "50%", width: "80px", height: "80px", marginLeft: "30px" }}>
           <img
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            src={profile}
+            style={{ width: "90%", height: "90%", objectFit: "cover" }}
+            src={dprofile}
             alt="프로필 이미지"
           />
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <span style={{ fontSize: "22px", color: "white" }}>{name}</span>
-          <span style={{ fontSize: "16px", color: "black" }}>#{user_id}</span>
+          <span style={{ fontSize: "20px", color: "white" }}>{name}</span>
+          <span style={{ fontSize: "14px", color: "black" }}>#{user_id}</span>
         </div>
       </div>
 
@@ -235,7 +236,7 @@ function My() {
         style={{textDecoration: "none"}}
         >
             <div style={{display: "flex", gap: "10px", alignItems: "center"}} className={styles.logout}>
-                <span style={{fontSize: "20px", color: "#FF6B5B", marginLeft: "20px"}}>로그아웃</span>
+                <span style={{fontSize: "16px", color: "#FF6B5B", marginLeft: "20px"}}>로그아웃</span>
                 <img src="/images/material-symbols-light_logout.png"style={{width: "30px", height: "30px"}} />
             </div>
       </Link>
