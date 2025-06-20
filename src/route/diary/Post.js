@@ -11,7 +11,7 @@ function Post() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/write-diary", {
+        const response = await axios.get("http://172.30.3.171:5000/write-diary", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -42,7 +42,7 @@ function Post() {
     e.stopPropagation();
     try {
       // 서버에 삭제 요청
-      await axios.delete(`http://localhost:5000/write-diary/${id}`, {
+      await axios.delete(`http://172.30.3.171:5000/write-diary/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

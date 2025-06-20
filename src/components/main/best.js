@@ -14,7 +14,7 @@ export default function Best() {
     useEffect(() => {
         async function fetchData() {
             try {
-                    const response = await axios.get("http://localhost:5000/write-diary", {
+                    const response = await axios.get("http://172.30.3.171:5000/write-diary", {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }

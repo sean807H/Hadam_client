@@ -22,7 +22,7 @@ const Calendar = () => {
         const startOfMonth = currentDate.startOf("month").format("YYYY-MM-DD");
         const endOfMonth = currentDate.endOf("month").format("YYYY-MM-DD");
 
-        const response = await axios.get(`http://localhost:5000/write-diary`, {
+        const response = await axios.get(`http://172.30.3.171:5000/write-diary`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -49,7 +49,7 @@ const Calendar = () => {
 
   const handleDayClick = async (day) => {
     try {
-      const response = await axios.get(`http://localhost:5000/write-diary`, {
+      const response = await axios.get(`http://172.30.3.171:5000/write-diary`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

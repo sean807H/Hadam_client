@@ -81,7 +81,7 @@ function My() {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const res = await axios.post("http://localhost:5000/event");
+        const res = await axios.post("http:// 172.30.3.171:5000/event");
         const map = new Map();
         res.data.events.forEach((ev) => {
           const key = formatDate(new Date(ev.date));

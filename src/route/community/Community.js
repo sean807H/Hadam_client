@@ -29,7 +29,7 @@ export default function Community() {
     if (!token) return;
     const fetchDiaries = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/write-diary", {
+        const res = await axios.get("http://172.30.3.171:5000/write-diary", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const publicDiaries = res.data
@@ -46,7 +46,7 @@ export default function Community() {
         // 반응 개수 로드
         publicDiaries.forEach((d) => {
           axios
-            .get(`http://localhost:5000/reactions/${d.id}`, {
+            .get(`http://172.30.3.171:5000/reactions/${d.id}`, {
               headers: { Authorization: `Bearer ${token}` },
             })
             .then((r) => {
@@ -70,7 +70,7 @@ export default function Community() {
   useEffect(() => {
     if (!token) return;
     axios
-      .get("http://localhost:5000/users", {
+      .get("http://172.30.3.171:5000/users", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -94,7 +94,7 @@ export default function Community() {
     if (!diaryId || !user_id) return;
     try {
       await axios.post(
-        "http://localhost:5000/reactions",
+        "http://172.30.3.171:5000/reactions",
         {
           diary_id: diaryId,
           reaction_type: idx.toString(),
@@ -108,7 +108,7 @@ export default function Community() {
         }
       );
       // 최신 반응 개수로 업데이트
-      const r = await axios.get(`http://localhost:5000/reactions/${diaryId}`, {
+      const r = await axios.get(`http://172.30.3.171:5000/reactions/${diaryId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const counts = [0, 0, 0, 0];

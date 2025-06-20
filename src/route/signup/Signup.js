@@ -34,7 +34,7 @@ function Signup() {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/users", {
+      const response = await axios.post("http://172.30.3.171:5000/users", {
         user_id: form.user_id,
         email: form.email,
         password: form.password,
@@ -45,7 +45,7 @@ function Signup() {
       localStorage.setItem("email", form.email);
       localStorage.setItem("name", form.name);
       
-      const res = await axios.get(`http://localhost:5000/users/${form.user_id}`);
+      const res = await axios.get(`http://172.30.3.171:5000/users/${form.user_id}`);
       const { profile } = res.data;
       localStorage.setItem("profile", profile)
       navigate('/login');
